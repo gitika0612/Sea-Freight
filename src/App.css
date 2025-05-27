@@ -3,6 +3,7 @@
   background-color: #00001a;
   color: white;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .App.dark {
@@ -15,46 +16,33 @@
   color: black;
 }
 
-/* You can customize other styles for the light theme as needed */
-
-/* Optional: Add transitions for smooth theme switch */
-.App {
-  transition: background-color 0.3s, color 0.3s;
-}
-
 /* Navbar styling based on theme */
 .Navbar {
   background-color: #282c34;
-  /* Adjust this if needed for dark theme */
 }
 
 .Navbar.light {
   background-color: #f8f9fa;
-  /* Light navbar background */
 }
 
-/* Dark Mode */
+/* Dark Mode Navbar Links */
 .App.dark .navbar-nav .nav-link {
   color: white;
-  /* Set the link text color to white in dark mode */
   font-weight: 700;
 }
 
 .App.dark .navbar-nav .nav-link:hover {
   color: #61dafb;
-  /* Optionally change the hover color */
 }
 
-/* Light Mode */
+/* Light Mode Navbar Links */
 .App.light .navbar-nav .nav-link {
   color: black;
-  /* Set the link text color to black in light mode */
   font-weight: 700;
 }
 
 .App.light .navbar-nav .nav-link:hover {
   color: #007bff;
-  /* Optional hover color for light mode */
 }
 
 /* Base button style */
@@ -93,10 +81,9 @@
   border-color: #4facfe;
 }
 
+/* Hero Section */
 .hero-section {
-  /* height: 91vh; */
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   color: white;
   text-align: center;
@@ -113,22 +100,16 @@
   transition: color 0.3s ease;
 }
 
-/* Dark Mode */
 .App.dark .color {
   color: white;
 }
 
-/* Light Mode */
 .App.light .color {
   color: black;
 }
 
-/* Dark Mode */
-.App.dark .text-color {
-  color: #064fc4;
-}
-
-/* Light Mode */
+/* Specific text color */
+.App.dark .text-color,
 .App.light .text-color {
   color: #064fc4;
 }
@@ -137,51 +118,75 @@
   width: 93vw;
 }
 
-.custom-dropdown {
+/* Dropdown Styles */
+.custom-dropdown,
+.custom-dropdown-2 {
   background-color: rgb(241, 243, 245);
   border: 1px solid rgb(241, 243, 245);
   border-radius: 6px;
   color: #000;
   font-size: 14px;
-  width: 250px;
   text-align: left;
 }
 
-.custom-dropdown .custom-dropdown-toggle {
+.custom-dropdown {
+  width: 250px;
+}
+
+.custom-dropdown-2 {
+  width: 100px;
+}
+
+.custom-dropdown .custom-dropdown-toggle,
+.custom-dropdown-2 .custom-dropdown-toggle {
   background-color: rgb(241, 243, 245);
   border: 1px solid rgb(241, 243, 245);
   border-radius: 6px;
   color: #000;
   font-size: 14px;
-  width: 250px;
   text-align: left;
+  width: 100%;
 }
 
 .custom-dropdown .custom-dropdown-toggle:hover,
-.custom-dropdown .custom-dropdown-toggle:focus {
+.custom-dropdown .custom-dropdown-toggle:focus,
+.custom-dropdown-2 .custom-dropdown-toggle:hover,
+.custom-dropdown-2 .custom-dropdown-toggle:focus {
   border-color: #064fc4;
   background-color: rgb(241, 243, 245);
   color: #000;
 }
 
-.custom-dropdown .custom-dropdown-menu {
-  width: 250px;
+.custom-dropdown .custom-dropdown-menu,
+.custom-dropdown-2 .custom-dropdown-menu {
   background-color: white;
   border-radius: 6px;
   margin-top: 4px;
 }
 
-.custom-dropdown .dropdown-item {
+.custom-dropdown .custom-dropdown-menu {
+  width: 250px;
+}
+
+.custom-dropdown-2 .custom-dropdown-menu {
+  width: 100px;
+}
+
+.custom-dropdown .dropdown-item,
+.custom-dropdown-2 .dropdown-item {
   font-size: 14px;
   padding: 8px 12px;
 }
 
 .custom-dropdown .dropdown-item:hover,
-.custom-dropdown .dropdown-item:focus {
+.custom-dropdown .dropdown-item:focus,
+.custom-dropdown-2 .dropdown-item:hover,
+.custom-dropdown-2 .dropdown-item:focus {
   background-color: rgb(241, 243, 245);
 }
 
-.custom-dropdown .dropdown-toggle::after {
+.custom-dropdown .dropdown-toggle::after,
+.custom-dropdown-2 .dropdown-toggle::after {
   display: none;
 }
 
@@ -189,20 +194,25 @@
   --bs-btn-active-bg: rgb(241, 243, 245) !important;
 }
 
+/* Padding helpers */
 .padding {
   padding-inline: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
+.padding-top-header {
+  padding-top: 73px;
+}
+
+/* Input with unit */
 .input-with-unit {
   position: relative;
   display: inline-block;
 }
 
 .input-with-unit input {
-  padding-right: 30px;
-  /* space for the unit */
+  padding-right: 30px; /* space for the unit */
 }
 
 .input-unit {
@@ -213,63 +223,101 @@
   color: #666;
   font-size: 14px;
   pointer-events: none;
-  /* so clicks go to input */
   user-select: none;
 }
 
+/* Columns */
 .col {
   text-align: left;
 }
 
+/* Button with border override */
 .btn {
   border: 1px solid black !important;
 }
 
-
-.custom-dropdown-2 {
-  background-color: rgb(241, 243, 245);
-  border: 1px solid rgb(241, 243, 245);
-  border-radius: 6px;
-  color: #000;
-  font-size: 14px;
-  width: 100px;
-  text-align: left;
+/* Responsive half width */
+.responsive-half {
+  width: 50%;
 }
 
-.custom-dropdown-2 .custom-dropdown-toggle {
-  background-color: rgb(241, 243, 245);
-  border: 1px solid rgb(241, 243, 245);
-  border-radius: 6px;
-  color: #000;
-  font-size: 14px;
-  width: 100px;
-  text-align: left;
+/* Heading styles */
+.heading-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.custom-dropdown-2 .custom-dropdown-toggle:hover,
-.custom-dropdown-2 .custom-dropdown-toggle:focus {
-  border-color: #064fc4;
-  background-color: rgb(241, 243, 245);
-  color: #000;
+/* Paragraph text */
+.paragraph-text {
+  font-size: 1rem;
 }
 
-.custom-dropdown-2 .custom-dropdown-menu {
-  width: 100px;
-  background-color: white;
-  border-radius: 6px;
-  margin-top: 4px;
+/* Media queries grouped */
+@media (max-width: 768px) {
+  .padding-top-header {
+    padding-top: 69px;
+  }
+
+  .container-3d-wrapper {
+    height: 40vh;    /* smaller height on mobile */
+    max-height: 300px;
+  }
+
+  .responsive-half:nth-child(2) {
+    display: none !important;
+  }
+
+  .heading-title {
+    font-size: 1rem;
+  }
+
+  .paragraph-text {
+    font-size: 0.7rem;
+  }
+
+  .responsive-half {
+    width: 100%;
+  }
+
+  /* Stack the row as vertical block */
+  .row.align-items-center {
+    display: block !important;
+  }
+
+  /* Each column becomes a full width block with margin */
+  .row.align-items-center > .col {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Add labels before each input for clarity on mobile */
+  .row.align-items-center > .col:nth-child(1)::before { content: "Unit of measure"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(2)::before { content: "Length"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(3)::before { content: "Width"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(4)::before { content: "Height"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(5)::before { content: "Gross weight"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(6)::before { content: "No. of packages"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(7)::before { content: "Total weight"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(8)::before { content: "Package volume"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(9)::before { content: "Total volume"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .row.align-items-center > .col:nth-child(10)::before { content: "Action"; font-weight: 600; display: block; margin-bottom: 0.25rem; }
 }
 
-.custom-dropdown-2 .dropdown-item {
-  font-size: 14px;
-  padding: 8px 12px;
+@media (max-width: 480px) {
+  .heading-title {
+    font-size: 1rem;
+  }
+
+  .paragraph-text {
+    font-size: 0.7rem;
+  }
 }
 
-.custom-dropdown-2 .dropdown-item:hover,
-.custom-dropdown-2 .dropdown-item:focus {
-  background-color: rgb(241, 243, 245);
+.container-3d-wrapper {
+  width: 100%;
+  height: 60vh;
+  max-height: 500px;
 }
 
-.custom-dropdown-2 .dropdown-toggle::after {
-  display: none;
-}
+

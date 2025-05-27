@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, extend } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -31,7 +31,6 @@ const WaveShaderMaterial = shaderMaterial(
   }
   `
 );
-
 extend({ WaveShaderMaterial });
 
 function WaterSurface() {
@@ -53,59 +52,35 @@ function WaterSurface() {
 function Ship() {
   return (
     <group position={[6, 0.5, 0]}>
-      {/* Hull */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[4, 1, 1.5]} />
         <meshStandardMaterial color="#8B4513" metalness={0.3} roughness={0.5} />
       </mesh>
-
-      {/* Bow */}
       <mesh position={[2.1, 0, 0]}>
         <cylinderGeometry args={[0, 0.75, 1.5, 12, 1]} />
         <meshStandardMaterial color="#8B4513" />
       </mesh>
-
-      {/* Cabin */}
-      <RoundedBox
-        args={[1.5, 0.8, 1]}
-        radius={0.1}
-        smoothness={4}
-        position={[-0.5, 0.9, 0]}
-      >
+      <RoundedBox args={[1.5, 0.8, 1]} radius={0.1} smoothness={4} position={[-0.5, 0.9, 0]}>
         <meshStandardMaterial color="#f0f0f0" />
       </RoundedBox>
-
-      {/* Windows */}
       {[[-0.9, 0.9, 0.51], [-0.5, 0.9, 0.51], [-0.1, 0.9, 0.51]].map((pos, i) => (
         <mesh position={pos} key={i}>
           <planeGeometry args={[0.2, 0.2]} />
           <meshStandardMaterial color="#00ccee" emissive="#003344" />
         </mesh>
       ))}
-
-      {/* Chimney */}
       <mesh position={[-0.5, 1.5, 0]}>
         <cylinderGeometry args={[0.1, 0.1, 0.6, 32]} />
         <meshStandardMaterial color="#222" />
       </mesh>
-
-      {/* Chimney Glow */}
       <mesh position={[-0.5, 1.8, 0]}>
         <sphereGeometry args={[0.08, 16, 16]} />
-        <meshStandardMaterial
-          color="#ff4444"
-          emissive="#ff0000"
-          emissiveIntensity={1}
-        />
+        <meshStandardMaterial color="#ff4444" emissive="#ff0000" emissiveIntensity={1} />
       </mesh>
-
-      {/* Mast */}
       <mesh position={[1.5, 1.2, 0]}>
         <cylinderGeometry args={[0.05, 0.05, 2, 8]} />
         <meshStandardMaterial color="#444" />
       </mesh>
-
-      {/* Flag */}
       <mesh position={[1.5, 2.2, 0]}>
         <planeGeometry args={[0.4, 0.3]} />
         <meshStandardMaterial color="#e63946" side={THREE.DoubleSide} />
@@ -132,59 +107,29 @@ function PackageBox({ length, width, height, color, position }) {
 function ContainerBox({ length, width, height }) {
   return (
     <group>
-      {/* Floor */}
       <mesh position={[length / 2, 0.01, width / 2]}>
         <boxGeometry args={[length, 0.02, width]} />
         <meshStandardMaterial color="#bbb" />
       </mesh>
-
-      {/* Walls */}
       <mesh position={[length / 2, height / 2, 0]}>
         <planeGeometry args={[length, height]} />
-        <meshStandardMaterial
-          color="#ccc"
-          transparent
-          opacity={0.2}
-          side={THREE.DoubleSide}
-        />
+        <meshStandardMaterial color="#ccc" transparent opacity={0.2} side={THREE.DoubleSide} />
       </mesh>
       <mesh position={[length / 2, height / 2, width]}>
         <planeGeometry args={[length, height]} />
-        <meshStandardMaterial
-          color="#ccc"
-          transparent
-          opacity={0.2}
-          side={THREE.DoubleSide}
-        />
+        <meshStandardMaterial color="#ccc" transparent opacity={0.2} side={THREE.DoubleSide} />
       </mesh>
       <mesh position={[0, height / 2, width / 2]} rotation={[0, Math.PI / 2, 0]}>
         <planeGeometry args={[width, height]} />
-        <meshStandardMaterial
-          color="#ccc"
-          transparent
-          opacity={0.2}
-          side={THREE.DoubleSide}
-        />
+        <meshStandardMaterial color="#ccc" transparent opacity={0.2} side={THREE.DoubleSide} />
       </mesh>
       <mesh position={[length, height / 2, width / 2]} rotation={[0, -Math.PI / 2, 0]}>
         <planeGeometry args={[width, height]} />
-        <meshStandardMaterial
-          color="#ccc"
-          transparent
-          opacity={0.2}
-          side={THREE.DoubleSide}
-        />
+        <meshStandardMaterial color="#ccc" transparent opacity={0.2} side={THREE.DoubleSide} />
       </mesh>
-
-      {/* Ceiling */}
       <mesh position={[length / 2, height, width / 2]}>
         <planeGeometry args={[length, width]} />
-        <meshStandardMaterial
-          color="#eee"
-          transparent
-          opacity={0.1}
-          side={THREE.DoubleSide}
-        />
+        <meshStandardMaterial color="#eee" transparent opacity={0.1} side={THREE.DoubleSide} />
       </mesh>
     </group>
   );
@@ -192,28 +137,21 @@ function ContainerBox({ length, width, height }) {
 
 function AnimatedScene({ packageList = [], containerType = "20' GP" }) {
   const groupRef = useRef();
-
   const containerDimensions = {
     "20' GP": { length: 6.06, width: 2.44, height: 2.59 },
     "40' GP": { length: 12.19, width: 2.44, height: 2.59 },
     "40' HC": { length: 12.19, width: 2.44, height: 2.90 },
   };
-  const { length: cLength, width: cWidth, height: cHeight } =
-    containerDimensions[containerType] || containerDimensions["20' GP"];
+  const { length: cLength, width: cWidth, height: cHeight } = containerDimensions[containerType];
 
-  // Auto-rotate container group
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.002;
     }
   });
 
-  // Simple bin-packing layout
-  let x = 0,
-    y = 0,
-    z = 0;
-  let rowHeight = 0,
-    maxRowDepth = 0;
+  let x = 0, y = 0, z = 0;
+  let rowHeight = 0, maxRowDepth = 0;
   const positions = [];
 
   for (let pkg of packageList) {
@@ -264,12 +202,32 @@ function AnimatedScene({ packageList = [], containerType = "20' GP" }) {
   );
 }
 
+// Function to determine camera settings based on screen size
+function getCameraSettings() {
+  if (window.innerWidth < 768) {
+    return { position: [8, 8, 12], fov: 50 };
+  } else {
+    return { position: [10, 10, 15], fov: 40 };
+  }
+}
+
 export default function Container3DView({ packageList, containerType }) {
+  const [cameraSettings, setCameraSettings] = useState(getCameraSettings());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCameraSettings(getCameraSettings());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div style={{ width: "100%", height: "400px" }}>
-      <Canvas shadows camera={{ position: [10, 10, 15], fov: 40 }}>
+    <div className="container-3d-wrapper">
+      <Canvas shadows camera={cameraSettings}>
         <AnimatedScene packageList={packageList} containerType={containerType} />
       </Canvas>
     </div>
+
   );
 }

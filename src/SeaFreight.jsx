@@ -10,9 +10,10 @@ const SeaFreight = () => {
     return (
         <div className={`App ${isDarkMode ? "dark" : "light"}`} >
             <Header />
-            <div style={{paddingTop: '73px'}}>
-            <HeroSection />
+            <div className="padding-top-header">
+                <HeroSection />
             </div>
+
         </div>
     )
 }

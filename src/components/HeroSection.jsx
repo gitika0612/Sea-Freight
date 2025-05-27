@@ -160,18 +160,19 @@ const HeroSection = () => {
     return (
         <div className="hero-section py-3 px-5">
             <div>
-                <h1 className="color fw-bold">
-                    CBM Calculator for
-                    <span className="text-color"> SeaFreight </span> Shipping
+                <h1 className="color fw-bold heading-title">
+                    CBM Calculator for <span className="text-color"> SeaFreight </span> Shipping
                 </h1>
-                <p className="mt-3 fs-6 color">
+
+                <p className="mt-3 color paragraph-text">
                     Quickly calculate CBM and load containers with ease and precision.
                 </p>
 
+
                 {/* first card  */}
-                <div className="pt-4">
+                <div className="pt-4 d-flex justify-content-center">
                     <Card className="fulLWidth px-2 py-3">
-                        <div className="d-flex align-items-center justify-content-center gap-5">
+                        <div className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-5">
                             <div>
                                 <div className="d-flex gap-1 align-items-center justify-content-center">
                                     <div className="fw-semibold">Container Type</div>
@@ -257,7 +258,7 @@ const HeroSection = () => {
                     {/* Table-style card */}
                     <Card className="px-3 py-3">
                         {/* Header Row */}
-                        <div className="row fw-semibold mb-3">
+                        <div className="row fw-semibold mb-3 d-none d-md-flex">
                             <div className="col">Unit of measure</div>
                             <div className="col">Length</div>
                             <div className="col">Width</div>
@@ -270,12 +271,19 @@ const HeroSection = () => {
                             {rows.length > 1 && <div className="col">Action</div>}
                         </div>
 
-                        {/* Input Row */}
+                        {/* Input Rows */}
                         {rows.map((row, index) => (
-                            <div className="row mb-2 align-items-center" key={index}>
-                                <div className="col">
-                                    <Dropdown className="custom-dropdown-2">
-                                        <Dropdown.Toggle className="custom-dropdown-toggle d-flex justify-content-between align-items-center">
+                            <div
+                                key={index}
+                                className={`row align-items-center flex-column flex-md-row pb-3 ${rows.length > 1 ? "mb-3 border-bottom border-md-0" : ""
+                                    }`}
+
+                            >
+                                {/* Unit */}
+                                <div className="col-12 col-md">
+                                    <div className="d-md-none fw-semibold mb-1">Unit of measure</div>
+                                    <Dropdown className="custom-dropdown-2 w-100">
+                                        <Dropdown.Toggle className="custom-dropdown-toggle d-flex justify-content-between align-items-center w-100">
                                             {row.unit || "Select"} <ChevronDown height={20} />
                                         </Dropdown.Toggle>
 
@@ -290,81 +298,110 @@ const HeroSection = () => {
                                             ))}
                                         </Dropdown.Menu>
                                     </Dropdown>
-
                                 </div>
-                                <div className="col">
+
+                                {/* Length */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Length</div>
                                     <input
                                         type="number"
                                         className="form-control"
                                         placeholder="0"
                                         value={row.length}
-                                        onChange={(e) =>
-                                            handleChange(index, "length", e.target.value)
-                                        }
+                                        onChange={(e) => handleChange(index, "length", e.target.value)}
                                     />
                                 </div>
-                                <div className="col">
+
+                                {/* Width */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Width</div>
                                     <input
                                         type="number"
                                         className="form-control"
                                         placeholder="0"
                                         value={row.width}
-                                        onChange={(e) =>
-                                            handleChange(index, "width", e.target.value)
-                                        }
+                                        onChange={(e) => handleChange(index, "width", e.target.value)}
                                     />
                                 </div>
-                                <div className="col">
+
+                                {/* Height */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Height</div>
                                     <input
                                         type="number"
                                         className="form-control"
                                         placeholder="0"
                                         value={row.height}
-                                        onChange={(e) =>
-                                            handleChange(index, "height", e.target.value)
-                                        }
+                                        onChange={(e) => handleChange(index, "height", e.target.value)}
                                     />
                                 </div>
-                                <div className="col">
+
+                                {/* Gross Weight */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Gross weight</div>
                                     <input
                                         type="number"
                                         className="form-control"
                                         placeholder="0"
                                         value={row.grossWeight}
-                                        onChange={(e) =>
-                                            handleChange(index, "grossWeight", e.target.value)
-                                        }
+                                        onChange={(e) => handleChange(index, "grossWeight", e.target.value)}
                                     />
                                 </div>
-                                <div className="col">
+
+                                {/* No. of packages */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">No. of packages</div>
                                     <input
                                         type="number"
                                         className="form-control"
                                         placeholder="1"
-                                        value={row.noOfPackages}
-                                        onChange={(e) =>
-                                            handleChange(index, "noOfPackages", e.target.value)
-                                        }
                                         min="1"
+                                        value={row.noOfPackages}
+                                        onChange={(e) => handleChange(index, "noOfPackages", e.target.value)}
                                     />
                                 </div>
-                                <div className="col">{row.totalWeight} Kg</div>
-                                <div className="col">{row.packageVolume} m³</div>
-                                <div className="col">{row.totalVolume} m³</div>
+
+                                {/* Total weight */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Total weight</div>
+                                    <div>{row.totalWeight} Kg</div>
+                                </div>
+
+                                {/* Package volume */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Package volume</div>
+                                    <div>{row.packageVolume} m³</div>
+                                </div>
+
+                                {/* Total volume */}
+                                <div className="col-12 col-md mt-3 mt-md-0">
+                                    <div className="d-md-none fw-semibold mb-1">Total volume</div>
+                                    <div>{row.totalVolume} m³</div>
+                                </div>
+
+                                {/* Action */}
                                 {rows.length > 1 && (
-                                    <div className="col">
-                                        <TrashIcon onClick={() => {
-                                            const newRows = [...rows];
-                                            newRows.splice(index, 1);
-                                            setRows(newRows);
-                                        }} height={15} className="cursor-pointer" />
+                                    <div className="col-12 col-md mt-3 mt-md-0">
+                                        <div className="d-md-none fw-semibold mb-1">Action</div>
+                                        <TrashIcon
+                                            onClick={() => {
+                                                const newRows = [...rows];
+                                                newRows.splice(index, 1);
+                                                setRows(newRows);
+                                            }}
+                                            height={15}
+                                            className="cursor-pointer"
+                                        />
                                     </div>
                                 )}
-
                             </div>
                         ))}
-                        <div className="row fw-bold border-top pt-2">
-                            <div className="col">
+
+                        {/* Totals row */}
+                        <div
+                            className={`row fw-bold pt-2 flex-column flex-md-row ${rows.length === 1 ? "border-top" : ""
+                                }`}
+                        >                            <div className="col-12 col-md">
                                 <button
                                     className="btn"
                                     style={{ padding: "5px 15px", fontWeight: "600" }}
@@ -373,29 +410,23 @@ const HeroSection = () => {
                                     Add Line
                                 </button>
                             </div>
-                            <div className="col"></div>
-                            <div className="col"></div>
-                            <div className="col"></div>
-                            <div className="col">Totals</div>
-                            <div className="col">{totalPackages}</div>
-                            <div className="col">{totalWeight} Kg</div>
-                            <div className="col">{totalPackageVolume} m³</div>
-                            <div className="col">{totalVolume} m³</div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block"></div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block"></div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block"></div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block">Totals</div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block">{totalPackages}</div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block">{totalWeight} Kg</div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block">{totalPackageVolume} m³</div>
+                            <div className="col-12 col-md mt-3 mt-md-0 d-none d-md-block">{totalVolume} m³</div>
+
                         </div>
                     </Card>
-
                 </div>
 
-                {/* <div className="pt-4">
-                    <Card className="px-4 py-3">
-                        <h5 className="fw-bold mb-3">Container View</h5>
-                        <Container3DView packageList={packageList} containerType={containerType} />
-                    </Card>
-                </div> */}
 
                 {/* third card  */}
-                <div className="pt-4 d-flex justify-content-between gap-3 mb-3">
-                    <div style={{ width: '50%' }}  >
+                <div className="pt-4 d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+                    <div className="responsive-half" >
                         <Card className="px-4 py-4 " >
                             <h5 className="fw-bold mb-4">Cargo Summary</h5>
 
@@ -462,10 +493,16 @@ const HeroSection = () => {
                             </div>
                         </Card>
                     </div>
-                    <div style={{ width: '50%' }}>
-                        <Card className="px-4 py-3" style={{height: '32.7rem'}}>
+                    <div className="responsive-half">
+                        <Card className="px-4 py-3" style={{ height: '32.7rem' }}>
                             <h5 className="fw-bold mb-3">Container View</h5>
-                            <Container3DView packageList={packageList} containerType={containerType} />
+                            {packageList && packageList.length > 0 ? (
+                                <Container3DView packageList={packageList} containerType={containerType} />
+                            ) : (
+                                <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#999' }}>
+                                    No container data to display
+                                </div>
+                            )}
                         </Card>
                     </div>
 
