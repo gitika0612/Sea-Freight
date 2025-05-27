@@ -1,38 +1,275 @@
+/* Default Dark Theme */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: #00001a;
+  color: white;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.App.dark {
+  background-color: #00001a;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App.light {
+  background-color: #fcfcfc;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* You can customize other styles for the light theme as needed */
+
+/* Optional: Add transitions for smooth theme switch */
+.App {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Navbar styling based on theme */
+.Navbar {
+  background-color: #282c34;
+  /* Adjust this if needed for dark theme */
+}
+
+.Navbar.light {
+  background-color: #f8f9fa;
+  /* Light navbar background */
+}
+
+/* Dark Mode */
+.App.dark .navbar-nav .nav-link {
+  color: white;
+  /* Set the link text color to white in dark mode */
+  font-weight: 700;
+}
+
+.App.dark .navbar-nav .nav-link:hover {
+  color: #61dafb;
+  /* Optionally change the hover color */
+}
+
+/* Light Mode */
+.App.light .navbar-nav .nav-link {
+  color: black;
+  /* Set the link text color to black in light mode */
+  font-weight: 700;
+}
+
+.App.light .navbar-nav .nav-link:hover {
+  color: #007bff;
+  /* Optional hover color for light mode */
+}
+
+/* Base button style */
+.button {
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+/* Light Theme Button */
+.App.light .button {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.App.light .button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Dark Theme Button */
+.App.dark .button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #ccc;
+}
+
+.App.dark .button:hover {
+  background-color: #4facfe;
+  color: #000;
+  border-color: #4facfe;
+}
+
+.hero-section {
+  /* height: 91vh; */
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  color: white;
+  text-align: center;
+  background-color: rgb(245, 246, 248);
+  transition: background 0.3s ease;
+}
+
+.dark .hero-section {
+  background: linear-gradient(to bottom right, #00001a, #000033);
+}
+
+/* Theme-aware text color utility */
+.color {
+  transition: color 0.3s ease;
+}
+
+/* Dark Mode */
+.App.dark .color {
+  color: white;
+}
+
+/* Light Mode */
+.App.light .color {
+  color: black;
+}
+
+/* Dark Mode */
+.App.dark .text-color {
+  color: #064fc4;
+}
+
+/* Light Mode */
+.App.light .text-color {
+  color: #064fc4;
+}
+
+.fulLWidth {
+  width: 93vw;
+}
+
+.custom-dropdown {
+  background-color: rgb(241, 243, 245);
+  border: 1px solid rgb(241, 243, 245);
+  border-radius: 6px;
+  color: #000;
+  font-size: 14px;
+  width: 250px;
+  text-align: left;
+}
+
+.custom-dropdown .custom-dropdown-toggle {
+  background-color: rgb(241, 243, 245);
+  border: 1px solid rgb(241, 243, 245);
+  border-radius: 6px;
+  color: #000;
+  font-size: 14px;
+  width: 250px;
+  text-align: left;
+}
+
+.custom-dropdown .custom-dropdown-toggle:hover,
+.custom-dropdown .custom-dropdown-toggle:focus {
+  border-color: #064fc4;
+  background-color: rgb(241, 243, 245);
+  color: #000;
+}
+
+.custom-dropdown .custom-dropdown-menu {
+  width: 250px;
+  background-color: white;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.custom-dropdown .dropdown-item {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.custom-dropdown .dropdown-item:hover,
+.custom-dropdown .dropdown-item:focus {
+  background-color: rgb(241, 243, 245);
+}
+
+.custom-dropdown .dropdown-toggle::after {
+  display: none;
+}
+
+.btn-primary {
+  --bs-btn-active-bg: rgb(241, 243, 245) !important;
+}
+
+.padding {
+  padding-inline: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.input-with-unit {
+  position: relative;
+  display: inline-block;
+}
+
+.input-with-unit input {
+  padding-right: 30px;
+  /* space for the unit */
+}
+
+.input-unit {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 14px;
+  pointer-events: none;
+  /* so clicks go to input */
+  user-select: none;
+}
+
+.col {
+  text-align: left;
+}
+
+.btn {
+  border: 1px solid black !important;
+}
+
+
+.custom-dropdown-2 {
+  background-color: rgb(241, 243, 245);
+  border: 1px solid rgb(241, 243, 245);
+  border-radius: 6px;
+  color: #000;
+  font-size: 14px;
+  width: 100px;
+  text-align: left;
+}
+
+.custom-dropdown-2 .custom-dropdown-toggle {
+  background-color: rgb(241, 243, 245);
+  border: 1px solid rgb(241, 243, 245);
+  border-radius: 6px;
+  color: #000;
+  font-size: 14px;
+  width: 100px;
+  text-align: left;
+}
+
+.custom-dropdown-2 .custom-dropdown-toggle:hover,
+.custom-dropdown-2 .custom-dropdown-toggle:focus {
+  border-color: #064fc4;
+  background-color: rgb(241, 243, 245);
+  color: #000;
+}
+
+.custom-dropdown-2 .custom-dropdown-menu {
+  width: 100px;
+  background-color: white;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.custom-dropdown-2 .dropdown-item {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.custom-dropdown-2 .dropdown-item:hover,
+.custom-dropdown-2 .dropdown-item:focus {
+  background-color: rgb(241, 243, 245);
+}
+
+.custom-dropdown-2 .dropdown-toggle::after {
+  display: none;
 }
