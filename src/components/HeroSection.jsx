@@ -5,7 +5,7 @@ import { ChevronDown, Info, TrashIcon } from "lucide-react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Container3DView from "./Container3DView";
+import ContainerShipView from "./Container3DView";
 
 const containerOptions = {
     "20' GP": { maxVolume: 28, maxWeight: 20000 },
@@ -59,46 +59,59 @@ const HeroSection = () => {
     const handleChange = (index, field, value) => {
         const newRows = [...rows];
         const row = { ...newRows[index], [field]: value };
-
+    
+        // Temporarily store raw input
+        newRows[index] = {
+            ...row,
+            [field]: value
+        };
+    
+        // Don't calculate if input is empty or invalid number
+        if (["length", "width", "height", "grossWeight", "noOfPackages"].includes(field) && value === "") {
+            setRows(newRows);
+            return;
+        }
+    
+        // Parse values or use fallback
         const length = parseFloat(row.length) || 0;
         const width = parseFloat(row.width) || 0;
         const height = parseFloat(row.height) || 0;
         const grossWeight = parseFloat(row.grossWeight) || 0;
-        const noOfPackages = parseInt(row.noOfPackages) || 0;
-
-        // Convert all dimensions to meters
+        const noOfPackages = Math.max(1, parseInt(row.noOfPackages)) || 1;
+    
+        // Convert to meters
         let lengthInMeters = length;
         let widthInMeters = width;
         let heightInMeters = height;
-
+    
         switch (row.unit) {
             case "cm":
-                lengthInMeters = length / 100;
-                widthInMeters = width / 100;
-                heightInMeters = height / 100;
+                lengthInMeters /= 100;
+                widthInMeters /= 100;
+                heightInMeters /= 100;
                 break;
             case "mm":
-                lengthInMeters = length / 1000;
-                widthInMeters = width / 1000;
-                heightInMeters = height / 1000;
-                break;
-            default:
+                lengthInMeters /= 1000;
+                widthInMeters /= 1000;
+                heightInMeters /= 1000;
                 break;
         }
-
+    
+        // Calculate volumes and weight
         const packageVolume = parseFloat((lengthInMeters * widthInMeters * heightInMeters).toFixed(3));
         const totalVolume = parseFloat((packageVolume * noOfPackages).toFixed(3));
         const totalWeight = parseFloat((grossWeight * noOfPackages).toFixed(2));
-
+    
         newRows[index] = {
             ...row,
             packageVolume,
             totalVolume,
-            totalWeight,
+            totalWeight
         };
-
+    
         setRows(newRows);
     };
+    
 
     const totalPackages = rows.reduce((sum, row) => sum + (parseInt(row.noOfPackages) || 0), 0);
     const totalWeight = rows.reduce((sum, row) => sum + (parseFloat(row.totalWeight) || 0), 0).toFixed(2);
@@ -497,7 +510,7 @@ const HeroSection = () => {
                         <Card className="px-4 py-3" style={{ height: '32.7rem' }}>
                             <h5 className="fw-bold mb-3">Container View</h5>
                             {packageList && packageList.length > 0 ? (
-                                <Container3DView packageList={packageList} containerType={containerType} />
+                                <ContainerShipView packageList={rows} />
                             ) : (
                                 <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#999' }}>
                                     No container data to display
